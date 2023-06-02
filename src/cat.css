@@ -1,0 +1,26 @@
+p.loader {
+    display: none;
+  }
+  
+  p.loader.visible {
+    display: block;
+  }
+
+  .error {
+    display: none;
+  }
+  .error.active {
+    display: block;
+  }
+
+  .cat-info strong {
+    display: none;
+  }
+
+.cat-info img{
+  display: flex;
+  justify-content: flex-start;
+  width: 400px;
+  height: 300px;
+}
+
