@@ -16,7 +16,7 @@ async function fetchJson(url) {
     }
     return response.json();
   } finally {
-    loader.classList.remove('visible'); // Скрываем загрузчик
+    loader.classList.remove('visible'); // Скрываем загрузчикк
   }
 }
 
