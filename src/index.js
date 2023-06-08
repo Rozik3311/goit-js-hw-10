@@ -8,10 +8,9 @@ import Notiflix from 'notiflix';
 
 Notiflix.Notify.success('You are welcome');
 
-// Выполнение HTTP-запроса за коллекцией пород
+// Виконання HTTP-запитів за списком порід
 fetchBreeds()
   .then(breeds => {
-    // Заполняем select.breed-select опциями
     const breedSelect = document.querySelector('select.breed-select');
     breeds.forEach(breed => {
       const option = document.createElement('option');
@@ -21,42 +20,56 @@ fetchBreeds()
     });
   })
   .catch((error) => {
-    // Проверяем тип ошибки
     if (error instanceof TypeError) {
-      // Выводим текст об ошибке в элементе параграфа
+      // Виводимо текст про помилку
       const errorMessage = document.getElementById('error-message');
       errorMessage.textContent = 'Oops! Something went wrong! Try reloading the page!';
     }
-
   });
 
-  document.querySelector('.breed-select').addEventListener('change', event => {
-    const breedId = event.target.value;
-  
-    // Выполнение HTTP-запроса за данными о коте
-    fetchCatByBreed(breedId)
-      .then(catData => {
-        // Обновление интерфейса с информацией о коте
-        const catInfo = document.querySelector('div.cat-info');
-        catInfo.innerHTML = ''; // Очищаем содержимое блока
-  
-        if (catData) {
-          const cat = catData[0];
-          const image = document.createElement('img');
-          image.src = cat.url;
-          catInfo.innerHTML = `
-            <p><strong>Название породы:</strong> ${cat.breeds[0].name}</p>
-            <p><strong>Описание:</strong> ${cat.breeds[0].description}</p>
-            <p><strong>Темперамент:</strong> ${cat.breeds[0].temperament}</p>
-          `;
-          catInfo.appendChild(image);
-        }
-      })
-      .catch((error) => {
-        const errorMessage = document.querySelector('.error');
-        errorMessage.classList.add('active');
-      });
-  });
+document.querySelector('.breed-select').addEventListener('change', event => {
+  const breedId = event.target.value;
+
+  // Виконання HTTP-запитів за данними про кота
+  fetchCatByBreed(breedId)
+    .then(catData => {
+      const catInfo = document.querySelector('div.cat-info');
+      catInfo.innerHTML = '';
+
+      if (catData) {
+        const cat = catData[0];
+
+        const imageDiv = document.createElement('div'); 
+        const image = document.createElement('img');
+        image.src = cat.url;
+        imageDiv.appendChild(image);
+        catInfo.appendChild(imageDiv);
+
+        const breedInfoDiv = document.createElement('div'); 
+        breedInfoDiv.classList.add('breed-info');
+        catInfo.appendChild(breedInfoDiv);
+
+        const breedTitle = document.createElement('p');
+        breedTitle.classList.add('breed-title');
+        breedTitle.innerHTML = `<strong></strong> ${cat.breeds[0].name}`;
+        breedInfoDiv.appendChild(breedTitle);
+
+        const breedDescription = document.createElement('p');
+        breedDescription.classList.add('breed-description');
+        breedDescription.innerHTML = `<strong></strong> ${cat.breeds[0].description}`;
+        breedInfoDiv.appendChild(breedDescription);
+
+        const breedTemperament = document.createElement('p');
+        breedTemperament.classList.add('breed-temperament');
+        breedTemperament.innerHTML = `<strong>Temperament:</strong> ${cat.breeds[0].temperament}`;
+        breedInfoDiv.appendChild(breedTemperament);
+      }
+    })
+    .catch((error) => {
+      const errorMessage = document.querySelector('.error');
+      errorMessage.classList.add('active');
+    });
+});
 
 
 

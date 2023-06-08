@@ -1,6 +1,6 @@
 const API_KEY = 'live_s4bpib1CcnqyLXZpdvtQ8UHhHrW6PfJFBBOongvitKRD2z36L989zxDZ1vq2g7RV';
 
-// Функция для выполнения HTTP-запросов
+// Виконання HTTP-запитів
 async function fetchJson(url) {
   const loader = document.querySelector('p.loader');
   loader.classList.add('visible'); // Показываем загрузчик
@@ -20,43 +20,43 @@ async function fetchJson(url) {
   }
 }
 
-// Функция для получения коллекции пород
+//Отримання пород
 export function fetchBreeds() {
   const breedSelect = document.querySelector('select.breed-select');
-  breedSelect.style.display = 'none'; // Скрываем select.breed-select
+  breedSelect.style.display = 'none'; 
   
   const loader = document.querySelector('p.loader');
-  loader.classList.add('visible'); // Показываем загрузчик
+  loader.classList.add('visible'); 
   
   const url = 'https://api.thecatapi.com/v1/breeds';
   return fetchJson(url)
     .then(breeds => {
-      breedSelect.style.display = 'block'; // Показываем select.breed-select
+      breedSelect.style.display = 'block'; 
       
       return breeds;
     })
     .finally(() => {
-      loader.classList.remove('visible'); // Скрываем загрузчик
+      loader.classList.remove('visible'); 
     });
 }
 
-// Функция для получения данных о коте по идентификатору породы
+// Функція для отримання данних про кота за ідентифікатором порід
 export function fetchCatByBreed(breedId) {
   const catInfo = document.querySelector('div.cat-info');
-  catInfo.style.display = 'none'; // Скрываем div.cat-info
+  catInfo.style.display = 'none'; // 
   
   const loader = document.querySelector('p.loader');
-  loader.classList.add('visible'); // Показываем загрузчик
+  loader.classList.add('visible'); 
   
   const url = `https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`;
   return fetchJson(url)
     .then(catData => {
-      catInfo.style.display = 'block'; // Показываем div.cat-info
+      catInfo.style.display = 'block'; 
       
       return catData;
     })
     .finally(() => {
-      loader.classList.remove('visible'); // Скрываем загрузчик
+      loader.classList.remove('visible'); 
     });
 }
 
