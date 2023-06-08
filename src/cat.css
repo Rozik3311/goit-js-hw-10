@@ -24,7 +24,7 @@ p.loader.visible {
   align-items: flex-start;
   width: 400px;
   height: 300px;
-  padding: 5px;
+  padding-top: 5px;
 }
 
 .breed-info {
